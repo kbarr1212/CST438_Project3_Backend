@@ -14,7 +14,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
                 // allow access to these routes without login
-                .requestMatchers("/", "/public/**", "/api/test", "/health").permitAll()
+                .requestMatchers("/", "/public/**", "/api/test", "/health", "/items", "/chats", "/messages" ).permitAll()
                 // everything else requires authentication
                 .anyRequest().authenticated()
             )
