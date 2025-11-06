@@ -1,48 +1,28 @@
 package com.example.backend.controller;
 
+import com.example.backend.repository.ItemRepository;
+import com.example.backend.entity.Item;
 
 import org.springframework.web.bind.annotation.*;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("items")
+@RequestMapping("/api/items")
 @CrossOrigin(origins = "*")
 public class ItemController {
+    private final ItemRepository repo;
 
-    // temp database
-    private List<Map<String, Object>> items = new ArrayList<>();
-
-    // temp data for now
-    public ItemController() {
-        Map<String, Object> item1 = new HashMap<>();
-        item1.put("id", 1);
-        item1.put("title", "Vintage Jacket");
-        item1.put("price", new BigDecimal("49.99"));
-        item1.put("seller", "Alex");
-
-        Map<String, Object> item2 = new HashMap<>();
-        item2.put("id", 2);
-        item2.put("title", "Retro Sneakers");
-        item2.put("price", new BigDecimal("89.00"));
-        item2.put("seller", "Jamie");
-
-        items.add(item1);
-        items.add(item2);
+    public ItemController(ItemRepository repo) {
+        this.repo = repo;
     }
 
-    // GET items
     @GetMapping
-    public List<Map<String, Object>> getAllItems() {
-        return items;
+    public List<Item> getAll() {
+        return repo.findAll();
     }
 
-    // POST item
     @PostMapping
-    public Map<String, Object> createItem(@RequestBody Map<String, Object> newItem) {
-        newItem.put("id", items.size() + 1);
-        items.add(newItem);
-        return newItem;
+    public Item create(@RequestBody Item item) {
+        return repo.save(item);
     }
 }
-
