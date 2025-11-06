@@ -36,4 +36,20 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+/**
+ * 🔹 Add this section to ensure Heroku builds the correct bootable JAR
+ * (Prevents it from creating backend-0.0.1-SNAPSHOT-plain.jar only)
+ */
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+}
+
+/**
+ * 🔹 Heroku buildpack looks for a `stage` task by default.
+ * This tells it to clean and build the bootable jar.
+ */
 task stage(dependsOn: ['clean', 'bootJar'])
