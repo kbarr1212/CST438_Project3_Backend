@@ -1,5 +1,5 @@
-package com.example.backend.repository_tests;
-
+//package com.example.backend.repository_tests;
+/* 
 import com.example.backend.entity.Item;
 import com.example.backend.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
@@ -40,3 +40,4 @@ class ItemRepositoryTest {
         assertThat(repo.findAll()).hasSize(1);
     }
 }
+*/

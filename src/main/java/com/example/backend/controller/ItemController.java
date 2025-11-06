@@ -1,5 +1,5 @@
-package com.example.backend.controller;
-
+//package com.example.backend.controller;
+/*
 import com.example.backend.repository.ItemRepository;
 import com.example.backend.entity.Item;
 
@@ -26,3 +26,4 @@ public class ItemController {
         return repo.save(item);
     }
 }
+*/
