@@ -1,5 +1,5 @@
-//package com.example.backend.controller;
-/*
+package com.example.backend.controller;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -30,4 +30,3 @@ public class ChatController {
     }
 
 }
-*/
