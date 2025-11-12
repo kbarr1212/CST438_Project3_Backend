@@ -48,18 +48,20 @@ bootJar {
     enabled = true
 }
 
-// ✅ Reliable Heroku stage task: copy the jar to root AFTER build
+// Heroku buildpack calls "stage" — this copies the jar to root
 tasks.register("stage") {
-    dependsOn("clean", "bootJar")
+    dependsOn("bootJar")
     doLast {
-        def jarFile = file("build/libs").listFiles().find { it.name.endsWith(".jar") }
+        def libsDir = file("build/libs")
+        def jarFile = libsDir.listFiles()?.find { it.name.endsWith(".jar") }
         if (jarFile) {
             copy {
                 from jarFile
                 into "."
             }
+            println "✅ Copied ${jarFile.name} to project root"
         } else {
-            throw new GradleException("Boot jar not found in build/libs")
+            throw new GradleException("❌ Boot jar not found in build/libs after bootJar task")
         }
     }
 }
