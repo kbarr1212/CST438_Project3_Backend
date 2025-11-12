@@ -37,7 +37,7 @@ tasks.named('test') {
 }
 
 /**
- * 🔹 Add this section to ensure Heroku builds the correct bootable JAR
+ * Add this section to ensure Heroku builds the correct bootable JAR
  * (Prevents it from creating backend-0.0.1-SNAPSHOT-plain.jar only)
  */
 jar {
@@ -49,7 +49,9 @@ bootJar {
 }
 
 /**
- * 🔹 Heroku buildpack looks for a `stage` task by default.
+ * Heroku buildpack looks for a `stage` task by default.
  * This tells it to clean and build the bootable jar.
  */
-task stage(dependsOn: ['clean', 'bootJar'])
+tasks.register("stage") {
+    dependsOn("clean", "bootJar")
+}
