@@ -35,3 +35,33 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+/**
+ * Add this section to ensure Heroku builds the correct bootable JAR
+ * (Prevents it from creating backend-0.0.1-SNAPSHOT-plain.jar only)
+ */
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+}
+
+// Heroku buildpack calls "stage" — this copies the jar to root
+tasks.register("stage") {
+    dependsOn("bootJar")
+    doLast {
+        def libsDir = file("build/libs")
+        def jarFile = libsDir.listFiles()?.find { it.name.endsWith(".jar") }
+        if (jarFile) {
+            copy {
+                from jarFile
+                into "."
+            }
+            println "✅ Copied ${jarFile.name} to project root"
+        } else {
+            throw new GradleException("❌ Boot jar not found in build/libs after bootJar task")
+        }
+    }
+}
